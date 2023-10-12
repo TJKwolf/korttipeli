@@ -19,7 +19,7 @@ const opponentcard ={
 }
 
 const createCard = index =>({
-    image: "http://placekitten.com/130/100?=" + index,
+    image: "http://placekitten.com/130/100?image=" + index,
     stats: [{name: 'cuteness',value: getRandomInt(1, 100)},
             {name: 'speed', value: getRandomInt(1, 100)},
             {name: 'power', value: getRandomInt(1, 100)}
@@ -62,17 +62,24 @@ export default  function App(){
        <div className='game'>
          <ul className='card-list'>
           {cards.player.map(playerC =>(
-            <li>
+            <li className='card-list-item player' key={playerC.id}>
               <Card card={playerC}/>
             </li>
           ))}
          </ul>
           <div className='center-area'>
             <p>{result ||'Press The Button'}</p>
-            <button type='button' onClick={comperCards}>play</button>
+            <button className ='play-button' type='button' onClick={comperCards}>play</button>
           </div>
-         <Card card={cards.opponent[0]}/>
-         {console.log(dealCards())}
+
+        <ul className='card-list opponent'>
+          {cards.opponent.map(opponentC =>(
+            <li className='card-list-item opponent' key={opponentC.id}>
+              <Card card={opponentC}/>
+            </li>
+          ))}
+        </ul>
+
        </div>
     </>
  
