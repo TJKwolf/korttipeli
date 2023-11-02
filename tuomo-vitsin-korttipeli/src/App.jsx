@@ -51,7 +51,7 @@ export default  function App(){
 
   const[result,setResult] = useState('');
   const[cards, setCards] = useState(dealCards);
-  
+  const [ gameState, setGameState ] = useState('play')
   function comperCards(){
     const playerStats = cards.player[0].stats[0];
     const opponentStats = cards.opponent[0].stats[0];
@@ -66,22 +66,31 @@ export default  function App(){
     else{
       setResult('lose');
     }
+    setGameState('result');
 
+  }
+
+  function nextRound(){
+    setGameState('play');
+    setResult('');
   }
   return(
     <>
       <h1>Cat_game</h1>
        <div className='game'>
          <ul className='card-list'>
-          {cards.player.map(playerC =>(
+          {cards.player.map((playerC, index) =>(
             <li className='card-list-item player' key={playerC.id}>
-              <Card card={playerC}/>
+              <Card card={index === 0 ? playerC : null}/>
             </li>
           ))}
          </ul>
           <div className='center-area'>
             <p>{result ||'Press The Button'}</p>
-            <PlayButton text={'play'} handleClick={comperCards}/>
+            {
+              gameState === 'play' ? (<PlayButton text={'play'} handleClick={comperCards}/>) : (<PlayButton text={'play'} handleClick={nextRound}/>)
+            }
+           
           </div>
 
         <ul className='card-list opponent'>
