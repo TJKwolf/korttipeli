@@ -22,6 +22,16 @@
     justify-content: space-between;
 }
 
+.stat-list-item.selected{
+    outline: 2px solid rgb(13, 227, 13);
+    background-color: cyan;
+}
+
+.card-list-item.player .stat-list-item:hover{
+    outline: 2px dashed rgb(13, 227, 13);
+    background-color: cyan;
+}
+
 .game{
     display: flex;
     justify-content: center;

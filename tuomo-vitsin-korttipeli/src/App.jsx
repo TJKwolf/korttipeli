@@ -54,7 +54,14 @@ export default  function App(){
   const [ gameState, setGameState ] = useState('play')
   const[selectedStat, setSelected] = useState(0);
 
-
+  if(gameState !== 'game_over' && (!cards.opponent.length || !cards.player.length)){
+    setResult(()=>{
+      if(!cards.opponent.length) return 'Player wins!';
+      else if(!cards.player.length) return 'player loss';
+      return 'draw';
+    });
+    setGameState('game_over');
+  }
   function comperCards(){
     const playerStats = cards.player[0].stats[selectedStat];
     const opponentStats = cards.opponent[0].stats[selectedStat];
@@ -104,6 +111,12 @@ export default  function App(){
     setGameState('play');
     setResult('');
   }
+
+  function restartGame(){
+    setCards(dealCards);
+    setResult('');
+    setGameState('play');
+  }
   return(
     <>
       <h1>Cat_game</h1>
@@ -121,15 +134,20 @@ export default  function App(){
           <div className='center-area'>
             <p>{result ||'Press The Button'}</p>
             {
-              gameState === 'play' ? (<PlayButton text={'play'} handleClick={comperCards}/>) : (<PlayButton text={'play'} handleClick={nextRound}/>)
+              gameState === 'play' ? (<PlayButton text={'play'} handleClick={comperCards}/>) 
+              : 
+              gameState === 'game_over' ? 
+              (<PlayButton text={'restart'} handleClick={restartGame}/>)
+              :
+              (<PlayButton text={'play'} handleClick={nextRound}/>)
             }
            
           </div>
 
         <ul className='card-list opponent'>
-          {cards.opponent.map(opponentC =>(
+          {cards.opponent.map((opponentC, index) =>(
             <li className='card-list-item opponent' key={opponentC.id}>
-              <Card card={opponentC}/>
+              <Card card={result && index === 0 ? opponentC : null}/>
             </li>
           ))}
         </ul>
