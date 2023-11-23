@@ -69,3 +69,9 @@
     font-size: larger;
     font-weight: bold;
 }
+
+.hand{
+    display: flex;
+    flex-direction: column;
+    min-width: 40vw;
+}
