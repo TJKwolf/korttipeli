@@ -75,3 +75,7 @@
     flex-direction: column;
     min-width: 40vw;
 }
+
+#canvas{
+    background-color: blue;
+}

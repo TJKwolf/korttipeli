@@ -2,7 +2,8 @@ import React from 'react';
 import'./App.css'
 import Home from './componets/koti';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import CardGame from './componets/cardGame';
+import CardGame from './componets/cardgame/cardGame';
+import Breakout from './componets/breakout/BreakOut';
 export default  function App(){
 
   return(
@@ -16,6 +17,9 @@ export default  function App(){
             <li>
               <Link to="/cardGame">CardGame</Link>
             </li>
+            <li>
+            <Link to="/breakout">BreakOut</Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -23,6 +27,7 @@ export default  function App(){
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/cardGame" element={<CardGame />} />
+        <Route path="/breakout" element={<Breakout />} />
       </Routes>
 
     </Router>
