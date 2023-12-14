@@ -2,16 +2,17 @@ import React, {useEffect, useRef} from "react";
 import { BallMovement } from "./BallMovement";
 import data from "./data";
 import WallCollision from "./WallCollision";
-
-
-let {ballObj} = data;
+import Paddle from "./Paddle";
+import PaddleHit from "./paddleHit";
+let {ballObj,paddleProps} = data;
 
 //let x = 0;
 export default function Breakout(){
     const canvasRef = useRef(null);
+
     useEffect(()=>{
         const render = ()=>{
-            const canvas = canvasRef.current;
+        const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0,0,canvas.width,canvas.height);
         // ctx.fillStyle ="green";
@@ -21,12 +22,16 @@ export default function Breakout(){
        // x++;
        BallMovement(ctx, ballObj);
        WallCollision(ballObj,canvas);
+       Paddle(ctx, canvas, paddleProps);
+       PaddleHit(ballObj,paddleProps);
         requestAnimationFrame(render);
-        }
+    }
         render();
         
     },[]);
     return(
-        <canvas id="canvas" ref={canvasRef} height="500px" width="800px" />
+        <canvas id="canvas" ref={canvasRef} onMouseMove={(event) =>
+         paddleProps.x = event.clientX - paddleProps.width /2 -10
+    } height="500" width={window.innerWidth -20} />
     )
 }
